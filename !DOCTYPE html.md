@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تقرير محطة الحاير المنظم</title>
+    <title>تقرير محطة الحاير - تحديث معد التقرير</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f0f4f8; padding: 10px; margin: 0; padding-bottom: 80px; }
@@ -33,7 +33,7 @@
 
     <form id="mainForm">
         <div class="section">
-            <div class="section-header">📍 بيانات التوقيت والاستهلاك</div>
+            <div class="section-header">📍 البيانات العامة</div>
             <div class="grid">
                 <div class="field"><label>التاريخ</label><input type="date" id="reportDate"></div>
                 <div class="field"><label>الاستهلاك (MW/DAY)</label><input type="number" id="power"></div>
@@ -41,7 +41,7 @@
         </div>
 
         <div class="section">
-            <div class="section-header">💧 مخرجات الإنتاج</div>
+            <div class="section-header">💧 مخرجات محطة الحاير</div>
             <div class="grid">
                 <div class="field"><label>السعة التشغيلية</label><input type="number" id="h_capacity" value="50000" class="readonly-field" readonly></div>
                 <div class="field"><label>كمية الإنتاج (م3)</label><input type="number" id="h_prod" oninput="calculateSpare()"></div>
@@ -79,13 +79,23 @@
                 <div class="field full-width"><label>وصف العمل</label><textarea id="m_desc" rows="2"></textarea></div>
             </div>
         </div>
+
+        <div class="section">
+            <div class="section-header">👤 التوقيع</div>
+            <div class="grid">
+                <div class="field full-width">
+                    <label>معد التقرير</label>
+                    <input type="text" id="reporter_name" placeholder="أدخل اسمك هنا">
+                </div>
+            </div>
+        </div>
     </form>
 </div>
 
 <div class="toolbar">
     <button class="btn-reset" onclick="resetData()"><span class="icon">🗑️</span><span>مسح</span></button>
     <button class="btn-save" onclick="saveToDevice()"><span class="icon">💾</span><span>حفظ</span></button>
-    <button class="btn-export" onclick="exportExcel()"><span class="icon">📊</span><span>تصدير</span></button>
+    <button class="btn-export" onclick="exportExcel()"><span class="icon">📊</span><span>تصدير Excel</span></button>
 </div>
 
 <script>
@@ -97,7 +107,7 @@
 
     window.onload = function() {
         document.getElementById('reportDate').valueAsDate = new Date();
-        const savedData = localStorage.getItem('alhair_v8_data');
+        const savedData = localStorage.getItem('alhair_v10_data');
         if (savedData) {
             const data = JSON.parse(savedData);
             Object.keys(data).forEach(key => {
@@ -110,54 +120,54 @@
     function saveToDevice() {
         const formData = {};
         document.querySelectorAll('input, textarea').forEach(input => formData[input.id] = input.value);
-        localStorage.setItem('alhair_v8_data', JSON.stringify(formData));
-        alert('✅ تم الحفظ');
+        localStorage.setItem('alhair_v10_data', JSON.stringify(formData));
+        alert('✅ تم حفظ البيانات في المتصفح');
     }
 
     function resetData() {
-        if(confirm('مسح جميع البيانات؟')) { localStorage.removeItem('alhair_v8_data'); location.reload(); }
+        if(confirm('هل تريد مسح جميع البيانات؟')) { localStorage.removeItem('alhair_v10_data'); location.reload(); }
     }
 
     function exportExcel() {
         const date = document.getElementById('reportDate').value;
+        const reporter = document.getElementById('reporter_name').value || "غير محدد";
         const wb = XLSX.utils.book_new();
         
-        // هيكلة البيانات في جداول مرتبة
         const data = [
             ["تقرير تشغيل محطة تنقية الحاير اليومي"],
-            ["التاريخ:", date, "", "الاستهلاك الكهربائي (MW/DAY):", document.getElementById('power').value],
+            ["التاريخ:", date, "", "الاستهلاك (MW/DAY):", document.getElementById('power').value],
             [],
-            ["--- أولاً: مخرجات الإنتاج ---"],
+            ["--- مخرجات الإنتاج ---"],
             ["البيان", "القيمة (م3)"],
             ["السعة التشغيلية", "50000"],
             ["كمية الإنتاج اليومي", document.getElementById('h_prod').value],
             ["الإنتاج الاحتياطي", document.getElementById('h_spare').value],
-            ["كمية التصدير الكلي", document.getElementById('h_export').value],
+            ["كمية التصدير", document.getElementById('h_export').value],
             [],
-            ["--- ثانياً: حالة الآبار ---"],
-            ["آبار في الخدمة", "آبار خارج الخدمة", "ملاحظات الآبار"],
+            ["--- حالة الآبار ---"],
+            ["آبار في الخدمة", "آبار خارج الخدمة", "ملاحظات"],
             [document.getElementById('wells_in').value, document.getElementById('wells_out').value, document.getElementById('well_notes').value],
             [],
-            ["--- ثالثاً: جودة المياه (Product Water) ---"],
-            ["Temp", "Turbidity", "Free Chlorine", "pH", "Conductivity", "TDS"],
+            ["--- جودة المياه ---"],
+            ["Temp", "Turbidity", "Free Cl", "pH", "Cond.", "TDS"],
             [
                 document.getElementById('q_temp').value, document.getElementById('q_turb').value, 
                 document.getElementById('q_cl').value, document.getElementById('q_ph').value, 
                 document.getElementById('q_cond').value, document.getElementById('q_tds').value
             ],
             [],
-            ["--- رابعاً: تقرير الصيانة ---"],
-            ["المعدة", "الموقع", "وصف العمل المنفذ"],
-            [document.getElementById('m_equip').value, document.getElementById('m_loc').value, document.getElementById('m_desc').value]
+            ["--- تقرير الصيانة ---"],
+            ["المعدة", "الموقع", "الوصف"],
+            [document.getElementById('m_equip').value, document.getElementById('m_loc').value, document.getElementById('m_desc').value],
+            [],
+            ["تم إعداد التقرير بواسطة:", reporter]
         ];
 
         const ws = XLSX.utils.aoa_to_sheet(data);
-        ws['!dir'] = "rtl"; // جعل الملف من اليمين لليسار
-        
-        // تعريض الأعمدة لتناسب المحتوى
-        ws['!cols'] = [{wch: 25}, {wch: 20}, {wch: 20}, {wch: 25}, {wch: 15}, {wch: 15}];
+        ws['!dir'] = "rtl";
+        ws['!cols'] = [{wch: 25}, {wch: 20}, {wch: 15}, {wch: 15}, {wch: 15}, {wch: 15}];
 
-        XLSX.utils.book_append_sheet(wb, ws, "تقرير الحاير");
+        XLSX.utils.book_append_sheet(wb, ws, "التقرير");
         XLSX.writeFile(wb, `تقرير_الحاير_${date}.xlsx`);
     }
 </script>
