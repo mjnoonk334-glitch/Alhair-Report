@@ -241,7 +241,7 @@ body{background:#e8f0f8;font-family:'Segoe UI',Tahoma,Arial,sans-serif;font-size
         <div class="col-md-3"><label class="form-label">التاريخ الهجري</label>
           <input type="text" class="form-control" id="dateHijri" placeholder=""/></div>
         <div class="col-md-3"><label class="form-label">الشركة المشغّلة</label>
-          <input type="text" class="form-control" id="opCompany" placeholder="SWA"/></div>
+          <input type="text" class="form-control" id="opCompany" value="ذاتي"/></div>
       </div>
       <div class="row g-2 mb-2">
         <div class="col-md-2"><label class="form-label">المدينة</label>
@@ -249,20 +249,18 @@ body{background:#e8f0f8;font-family:'Segoe UI',Tahoma,Arial,sans-serif;font-size
         <div class="col-md-2"><label class="form-label">القطاع</label>
           <input type="text" class="form-control" id="sector" value=""/></div>
         <div class="col-md-3"><label class="form-label">المحطة</label>
-          <input type="text" class="form-control" id="station" placeholder=""/></div>
+          <input type="text" class="form-control" id="station" value="الحائر"/></div>
         <div class="col-md-3"><label class="form-label">الجهة المستفيدة</label>
-          <input type="text" class="form-control" id="beneficiary" placeholder=" "/></div>
+          <input type="text" class="form-control" id="beneficiary" value=" الشميسي-منفوحة"/></div>
         <div class="col-md-2"><label class="form-label">مصدر المياه</label>
-          <select class="form-select" id="waterSource">
-            <option>مياه جوفية</option><option>تحلية</option><option>سطحية</option><option>معالجة</option>
-          </select></div>
+          <input type="text" class="form-control" id="waterSource" value="آبار جوفية"/></div>
       </div>
       <div class="row g-2">
         <div class="col-md-2"><label class="form-label">الإنتاج التصميمي (م³/يوم)</label>
-          <input type="number" class="form-control" id="designProd" placeholder=""/></div>
+          <input type="text" class="form-control" id="designProd" value=" 50000"/></div>
         <div class="col-md-2"><label class="form-label">آلية التشغيل</label>
-          <select class="form-select" id="opMode"><option>ذاتي</option><option>شركة</option><option>مشترك</option></select></div>
-        <div class="col-md-2"><label class="form-label">عدد الآبار الكلي</label>
+          <input type="text" class="form-control" id="opMode" value="ذاتي"/></div>        
+                  <div class="col-md-2"><label class="form-label">عدد الآبار الكلي</label>
           <input type="number" class="form-control" id="totalWells" placeholder=""/></div>
         <div class="col-md-2"><label class="form-label">آبار في الخدمة</label>
           <input type="number" class="form-control" id="activeWells" placeholder=""/></div>
@@ -283,46 +281,31 @@ body{background:#e8f0f8;font-family:'Segoe UI',Tahoma,Arial,sans-serif;font-size
         <thead>
           <tr>
             <th rowspan="2" style="width:8%">الإنتاج</th>
-            <th colspan="2">طبيعي (م³/يوم)</th>
-            <th colspan="2">منخفض</th>
-            <th>سبب الانخفاض</th>
-            <th colspan="2">التصدير HPP</th>
+            <th colspan="1">طبيعي (م³/يوم)</th>
+            <th colspan="1">التصدير HPP</th>
             <th colspan="3">مضخات الرفع</th>
-          </tr>
           <tr>
-            <th>الكمية</th><th>نعم/لا</th>
-            <th>الكمية</th><th>نعم/لا</th>
-            <th>السبب</th>
-            <th>الكمية م³</th><th>معدل م³/س</th>
-            <th>عدد المضخات</th><th>في الخدمة</th><th>معدل الضخ</th>
+            <th>الكمية</th>
+            <th>الكمية</th>
+            <th>عدد المضخات</th><th>في الخدمة</th><th> خارج الخدمة</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td class="lbl-td fw-bold">نساح</td>
-            <td class="ic"><input type="number" id="nasah_nat" placeholder="23542"/></td>
-            <td class="ic"><select style="width:100%;border:none;font-size:.75rem"><option>نعم</option><option>لا</option></select></td>
-            <td class="ic"><input type="number" id="nasah_low"/></td>
-            <td class="ic"><select style="width:100%;border:none;font-size:.75rem"><option>نعم</option><option>لا</option></select></td>
-            <td class="ic"><input type="text" id="nasah_reason"/></td>
+            <td class="ic"> <input type="number" id="nasah_nat" placeholder="23542"/></td>
             <td class="ic"><input type="number" id="nasah_hpp_qty" placeholder="21496"/></td>
-            <td class="ic"><input type="number" id="nasah_hpp_rate" placeholder="896"/></td>
             <td class="ic"><input type="number" id="nasah_pump_total" placeholder="4"/></td>
             <td class="ic"><input type="number" id="nasah_pump_active" placeholder="2"/></td>
-            <td class="ic"><input type="number" id="nasah_pump_rate"/></td>
+            <td class="ic"><input type="text" id="nasah_pump_rate"/></td>
           </tr>
           <tr>
             <td class="lbl-td fw-bold">منفوحة</td>
             <td class="ic"><input type="number" id="manf_nat" placeholder="22851"/></td>
-            <td class="ic"><select style="width:100%;border:none;font-size:.75rem"><option>نعم</option><option>لا</option></select></td>
-            <td class="ic"><input type="number" id="manf_low"/></td>
-            <td class="ic"><select style="width:100%;border:none;font-size:.75rem"><option>نعم</option><option>لا</option></select></td>
-            <td class="ic"><input type="text" id="manf_reason"/></td>
             <td class="ic"><input type="number" id="manf_hpp_qty" placeholder="22851"/></td>
-            <td class="ic"><input type="number" id="manf_hpp_rate" placeholder="952"/></td>
             <td class="ic"><input type="number" id="manf_pump_total" placeholder="4"/></td>
             <td class="ic"><input type="number" id="manf_pump_active" placeholder="2"/></td>
-            <td class="ic"><input type="number" id="manf_pump_rate"/></td>
+            <td class="ic"><input type="text" id="manf_pump_rate"/></td>
           </tr>
         </tbody>
       </table>
@@ -514,7 +497,7 @@ body{background:#e8f0f8;font-family:'Segoe UI',Tahoma,Arial,sans-serif;font-size
         <div class="col-md-3"><label class="form-label">معد التقرير</label>
           <input type="text" class="form-control" id="opration" placeholder= "الاسم"/></div>
         <div class="col-md-3"><label class="form-label">مشرف  التشغيل</label>
-          <input type="text" class="form-control" id="Supervisor" placeholder="عبدالله المطيري"/></div>
+          <input type="text" class="form-control" id="Supervisor" value='عبدالله المطيري'/></div>
       </div>
     </div>
   </div>
@@ -710,7 +693,7 @@ function buildPrintHTML(r){
   const qRows=[
     {lbl:'Raw water / مياه خام', t:r.q_raw_time,temp:r.q_raw_temp,turb:r.q_raw_turb,cl:r.q_raw_cl,ph:r.q_raw_ph,cond:r.q_raw_cond,tds:r.q_raw_tds,iron:r.q_raw_iron,note:r.q_raw_notes},
     {lbl:'Product Water / مياه رجيع', t:r.q_prod_time,temp:r.q_prod_temp,turb:r.q_prod_turb,cl:r.q_prod_cl,ph:r.q_prod_ph,cond:r.q_prod_cond,tds:r.q_prod_tds,iron:r.q_prod_iron,note:r.q_prod_notes},
-    {lbl:'Rejected Water / مياه مرفوضة', t:r.q_rej_time,temp:r.q_rej_temp,turb:r.q_rej_turb,cl:r.q_rej_cl,ph:r.q_rej_ph,cond:r.q_rej_cond,tds:r.q_rej_tds,iron:r.q_rej_iron,note:r.q_rej_notes},
+    {lbl:'Rejected Water / مياه رجيع', t:r.q_rej_time,temp:r.q_rej_temp,turb:r.q_rej_turb,cl:r.q_rej_cl,ph:r.q_rej_ph,cond:r.q_rej_cond,tds:r.q_rej_tds,iron:r.q_rej_iron,note:r.q_rej_notes},
     {lbl:''},
   ];
 
@@ -1069,6 +1052,8 @@ function clearForm(){
   document.getElementById('dateGreg').valueAsDate=new Date();
   document.getElementById('city').value='الرياض';
   document.getElementById('sector').value='الأوسط';
+  document.getElementById('station').value='الحائر';
+
   toast('تم مسح النموذج','info');
 }
 
@@ -1286,5 +1271,22 @@ document.getElementById('sector').value='الأوسط';
       console.error("خطأ في مزامنة السحابة: ", e);
     }
   };
+document.getElementById('dateGreg').addEventListener('change', function() {
+    // 1. الحصول على التاريخ المختار
+    const gregorianDate = new Date(this.value);
+    
+    // التحقق من أن التاريخ صحيح
+    if (isNaN(gregorianDate.getTime())) return;
+
+    // 2. تحويل التاريخ إلى هجري باستخدام تقويم أم القرى
+    const hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    }).format(gregorianDate);
+
+    // 3. وضع النتيجة في حقل التاريخ الهجري تلقائياً
+    document.getElementById('dateHijri').value = hijriDate;
+});
 </script>
 </html>
