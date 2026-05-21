@@ -512,9 +512,9 @@ body{background:#e8f0f8;font-family:'Segoe UI',Tahoma,Arial,sans-serif;font-size
     <div class="s-card-body">
       <div class="row g-3">
         <div class="col-md-3"><label class="form-label">معد التقرير</label>
-          <input type="text" class="form-control" id="supervisor" placeholder= "الاسم"/></div>
+          <input type="text" class="form-control" id="opration" placeholder= "الاسم"/></div>
         <div class="col-md-3"><label class="form-label">مشرف  التشغيل</label>
-          <input type="text" class="form-control" id="nwcSupervisor" placeholder="عبدالله المطيري"/></div>
+          <input type="text" class="form-control" id="Supervisor" placeholder="عبدالله المطيري"/></div>
       </div>
     </div>
   </div>
@@ -1017,18 +1017,17 @@ function buildPrintHTML(r){
 <div style="${secH};margin-top:3pt;" class="mb2">الإعتماد</div>
 <table class="mb2">
   <tr>
-    <th style="${thS};width:13%">معد التقرير</th>
-    <th style="${thS}"> مشرف التشغيل </th>
+      <th style="${thS};width:8%">*</th>
+    <th style="${thS};rowspan="2" width:13%">معد التقرير</th>
+    <th style="${thS}rowspan="2" width:13%"> مشرف التشغيل </th>
   </tr>
   <tr>
     <td style="${tdLbl}">الاسم</td>
     <td style="${tdS}">${r.salineSupervisor||''}</td>
     <td style="${tdS}">${r.supervisor||''}</td>
-    <td style="${tdS}">${r.nwcSupervisor||''}</td>
   </tr>
   <tr style="height:36pt;">
     <td style="${tdLbl}">التوقيع</td>
-    <td style="${tdS}"></td>
     <td style="${tdS}"></td>
     <td style="${tdS}"></td>
   </tr>
